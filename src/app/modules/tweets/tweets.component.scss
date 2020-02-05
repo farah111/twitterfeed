@@ -1,0 +1,14 @@
+.tweets-feed{
+  width: 75%;
+  margin: 0 auto;
+}
+.tweet-container{
+  padding: 5px;
+  &--head{
+    border-bottom: 1px solid #D1D8EB;
+  }
+  &--footer{
+    border-top: 1px solid #D1D8EB;
+  }
+
+}

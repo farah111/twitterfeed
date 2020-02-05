@@ -1,0 +1,56 @@
+<div class="top-nav w-100 black p-4 m-0 d-flex justify-content-between">
+  <span>Welcome {{currentUser.email}}</span>
+  <a class="red" href="javascript:;" (click)="logout()">Logout</a>
+</div>
+
+<ng-container *ngIf="loading; else tweetsFeed">
+  <div class="p-5">
+    <app-loader></app-loader>
+  </div>
+</ng-container>
+
+<ng-template #tweetsFeed>
+  <div class="tweets-feed row p-5">
+    <img class="mx-auto mb-3 d-block" src="../../../assets/images/23681.png" height="100" width="100"/>
+    <h1 class="w-100 text-center">Tweets Feed</h1>
+    <ng-container *ngFor="let tweet of tweetsList">
+      <div class="col-sm-12 col-md-6 col-lg-4">
+        <app-card>
+          <div class="tweet-container">
+            <div class="tweet-container--head text-center d-flex flex-column mb-3 pb-3">
+              <span class="tweet-container--head-id"><span class="font-weight-bold"> ID: </span> {{tweet.id}}</span>
+              <span class="tweet-container--head-date text-muted">Created At {{getDateFormat(tweet.created_at)}}</span>
+            </div>
+            <div class="tweet-container--body">
+              <div class="tweet-container--body-user d-flex flex-column">
+                <span class="tweet-container--body-user-name">
+                  <span class="font-weight-bold"><i class="fa fa-user"></i> User:</span>
+                  {{tweet.user.name}}
+                </span>
+                <span class="tweet-container--body-user-screen">
+                  <span class="font-weight-bold"><i class="fa fa-desktop"></i> Screen Name:</span>
+                  {{tweet.user.screen_name}}
+                </span>
+                <span class="tweet-container--body-user-followers">
+                  <span class="font-weight-bold"><i class="fa fa-users"></i> Followers:</span>
+                  {{tweet.user.followers_count}}</span>
+              </div>
+            </div>
+            <div class="tweet-container--footer pt-3 mt-3">
+              <div class="tweet-container--footer-show-details text-center">
+                <button class="btn black" (click)="showDetails(tweet, tweetDetails)">Show All Details</button>
+              </div>
+            </div>
+
+          </div>
+        </app-card>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #tweetDetails>
+  <app-popup [cancelLabel]="'Close'" [title]="'Tweet Details'" (closeEvent)="closeAll()">
+    <ngx-json-viewer [json]="selectedTweet" [expanded]="false"></ngx-json-viewer>
+  </app-popup>
+</ng-template>
