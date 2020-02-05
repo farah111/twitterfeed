@@ -18,6 +18,7 @@ export class AuthComponent implements OnInit {
   credentials: UserCredentials;
   invalidEmailMessage = 'INVALID_EMAIL';
   invalidPasswordMessage = 'INVALID_PASSWORD';
+  emailNotFoundMessage = 'EMAIL_NOT_FOUND';
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -59,6 +60,7 @@ export class AuthComponent implements OnInit {
       switch (error) {
         case this.invalidEmailMessage:
         case this.invalidPasswordMessage:
+        case this.emailNotFoundMessage:
           this.toastr.error('You have entered an invalid email or password', 'Invalid');
           break;
         default:
